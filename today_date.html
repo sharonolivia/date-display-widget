@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time Left in this month</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: monospace;
+      background-color: #fff;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flip-date-container {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    .block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .flip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 5px;
+      min-width: 40px;
+      height: 40px;
+      border: 3px solid #000000;
+      box-shadow: 2px 2px 1px 0px #000000;
+      font-size: 2.2em;
+      background: #fff;
+      margin-bottom: 0.2em;
+      font-family: monospace;
+      font-weight: normal;
+      text-align: center;
+      line-height: 1.1;
+    }
+    .small {
+      font-size: 15px;
+      font-weight: lighter;
+      display: block;
+      text-transform: lowercase;
+    }
+    #month {
+      background-color: #f3fff3;
+    }
+    .label {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .flip-date-container {
+        gap: 6px;
+      }
+      .box {
+        font-size: 1.2em;
+        min-width: 30px;
+        height: 30px;
+        padding: 6px;
+      }
+      .small {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; align-items: center; width: max-content;">
+    <span class="small" id="weekday-full" style="margin-bottom: 6px; width: 100%; text-align: center; display: block;">---</span>
+    <div class="flip-date-container" id="flip-date">
+      <div class="block" data-part="month">
+        <div class="flip">
+          <div class="box" id="month">---</div>
+        </div>
+      </div>
+      <div class="block" data-part="weekday">
+        <div class="flip">
+          <div class="box" id="date">---</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show only month (short) and date (with short weekday)
+    function updateDateBoxes() {
+      const now = new Date();
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const weekdayFullNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const month = monthNames[now.getMonth()];
+      const weekday = weekdayNames[now.getDay()];
+      const weekdayFull = weekdayFullNames[now.getDay()];
+      const date = now.getDate();
+
+      document.getElementById("month").innerHTML = month;
+      document.getElementById("date").innerHTML = date;
+      document.getElementById("weekday-full").textContent = weekdayFull.toLowerCase();
+    }
+    setInterval(updateDateBoxes, 1000 * 60); // update every minute
+    updateDateBoxes();
+  </script>
+</body>
+</html>
